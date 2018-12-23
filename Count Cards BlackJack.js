@@ -23,53 +23,42 @@ function cc(card) {
     var result = "";
     var action = "";
 
-        switch(card){
-          case 2:
-          case 3:
-          case 4:
-          case 5:
-          case 6:
+    switch(card){
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 6:
 
-          count ++;
-          break;
+              count ++;
+              break;
 
-          case 7:
-          case 8:
-          case 9:
+              case 7:
+              case 8:
+              case 9:
 
-          break;
+              break;         
 
-          
-      
-          case 10:
-          case "J":
-          case "Q":
-          case "K":
-          case "A":
+              case 10:
+              case "J":
+              case "Q":
+              case "K":
+              case "A":
 
-          count --;
-          break;
+              count --;
+              break;
           
         }
 
         if (count > 0){
-
-
-        action = "Bet";
-       
-        result = count + " " + action;
-       
-
-
+            action = "Bet";       
+            result = count + " " + action;
         }
 
         if (count <= 0){
-        action = "Hold";
-        result = count + " " + action ;
-
+            action = "Hold";
+            result = count + " " + action ;
         }
-
         return result; 
-
 }
 
