@@ -112,11 +112,6 @@ var watchList = [
                 }
 ];
 
-// Add your code below this line
-
 var filteredList = watchList.filter((x)=>(x.imdbRating>8.0)).map( (x)=>({"title":x["Title"],"rating":x["imdbRating"]}));
-
-
-// Add your code above this line
 
 console.log(filteredList); 
