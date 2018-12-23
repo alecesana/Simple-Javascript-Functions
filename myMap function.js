@@ -11,10 +11,8 @@ Note: A pure function is allowed to alter local variables defined within its sco
 Write your own Array.prototype.myMap(), which should behave exactly like Array.prototype.map().*/
 
 var s = [23, 65, 98, 5];
-
 Array.prototype.myMap = function(callback){
   var newArray = [];
-
   for(let i = 0; i < this.length; i++){
     newArray.push(callback(this[i]));
   }
