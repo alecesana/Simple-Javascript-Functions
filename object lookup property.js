@@ -7,17 +7,14 @@ var myObj = {
 };
 
 function checkObj(checkProp) {
-
-  var result ;
+ var result ;
  if (myObj.hasOwnProperty(checkProp) == true ) {
    result = myObj[checkProp];
  }
- 
-  else {
+   else {
    result = "Not Found";
  }
   return result;
 }
-
 console.log(checkObj("gift")); //returns pony
 
