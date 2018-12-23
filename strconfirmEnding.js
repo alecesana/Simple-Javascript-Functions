@@ -1,8 +1,6 @@
 //Check a string ends with a specific value
 
-
 function confirmEnding(str, target) {
-
   if ( target ==  str.substring(str.length - target.length)){
   return true;
   }
@@ -10,5 +8,4 @@ function confirmEnding(str, target) {
     return false;
   }
 }
-
 console.log(confirmEnding("Bastian", "n"));
