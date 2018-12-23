@@ -113,17 +113,6 @@ var watchList = [
                 }
 ];
 
-// Add your code below this line
-///filter array by director christopher nolan and map it to just imdb rating
-
-
-////define function for reduce
-//alert(NolanMovies)
-
-
 var averageRating =  watchList.filter(movie=>movie.Director==="Christopher Nolan").map(obj=>Number(obj.imdbRating)).reduce((accumulator, currentValue) => accumulator + currentValue)/watchList.filter(x => x.Director === "Christopher Nolan").length;
-
-
-// Add your code above this line
 
 console.log(averageRating); 
