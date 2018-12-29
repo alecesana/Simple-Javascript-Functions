@@ -32,7 +32,7 @@ function checkCashRegister(price, cash, cid) {
   
   let result = {status: null, change:[]}
   let changeBreakdown = []
-
+ 
 //lookuptable to relate notes names to value in dollars
   let notesLookuptable = [
   {note:"ONE HUNDRED",value: 100.00},
