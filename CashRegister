@@ -1,0 +1,105 @@
+/*
+JavaScript Algorithms and Data Structures Projects: Cash Register
+Design a cash register drawer function checkCashRegister() that accepts purchase price as the first argument (price), payment as the second argument (cash), and cash-in-drawer (cid) as the third argument.
+
+cid is a 2D array listing available currency.
+
+The checkCashRegister() function should always return an object with a status key and a change key.
+
+Return {status: "INSUFFICIENT_FUNDS", change: []} if cash-in-drawer is less than the change due, or if you cannot return the exact change.
+
+Return {status: "CLOSED", change: [...]} with cash-in-drawer as the value for the key change if it is equal to the change due.
+
+Otherwise, return {status: "OPEN", change: [...]}, with the change due in coins and bills, sorted in highest to lowest order, as the value of the change key.
+
+Remember to use Read-Search-Ask if you get stuck. Try to pair program. Write your own code.
+
+Currency Unit	Amount
+Penny	$0.01 (PENNY)
+Nickel	$0.05 (NICKEL)
+Dime	$0.1 (DIME)
+Quarter	$0.25 (QUARTER)
+Dollar	$1 (DOLLAR)
+Five Dollars	$5 (FIVE)
+Ten Dollars	$10 (TEN)
+Twenty Dollars	$20 (TWENTY)
+One-hundred Dollars	$100 (ONE HUNDRED)
+*/
+function checkCashRegister(price, cash, cid) {
+//variables declaration
+  let change = (cash - price);
+  let cidTotalDollars;
+  
+  let result = {status: null, change:[]}
+  let changeBreakdown = []
+
+//lookuptable to relate notes names to value in dollars
+  let notesLookuptable = [
+  {note:"ONE HUNDRED",value: 100.00},
+  {note:"TWENTY", value:20.00},
+  {note:"TEN", value:10.00},
+  {note:"FIVE",value: 5.00},
+  {note:"ONE",value: 1.00},
+  {note:"QUARTER",value: 0.25},
+  {note:"DIME",value: 0.10}, 
+  {note:"NICKEL",value: 0.05}, 
+  {note:"PENNY", value:0.01}]
+
+//reduce function to convert 2d array "cid" to an object with a total sum of all values in cid and one to one values of each available note in register
+
+  
+  cidTotalDollars = cid.reduce(function(accumulator, currentValue){
+  accumulator.total +=currentValue[1]
+  accumulator[currentValue[0]] = currentValue[1]
+
+  return accumulator;
+},{ total: 0 })
+
+   
+//if cash-in-drawer is less than the change due, or if  exact change cannot be returned
+  if(cidTotalDollars.total<change){
+          result.status = "INSUFFICIENT_FUNDS"
+          result.change = []
+          return result;
+    }
+
+  else if(cidTotalDollars.total==change){
+          result.status = "CLOSED"
+          result.change = cid
+          return result;
+  }
+
+  //if cash in drawer total is bigger than change to be given (i.e. there is enough money left to give change)
+
+  else if(cidTotalDollars.total>change){ 
+  changeBreakdown = notesLookuptable.reduce(function(accumulator, currentValue){
+    let currentNoteAmount = 0; 
+    while ( cidTotalDollars[currentValue.note]>0 && change >= currentValue.value ){
+      
+      change -= currentValue.value //decrease change by value of currently reduced note
+      cidTotalDollars[currentValue.note] -= currentValue.value  //decrease currently reduced note by value of currently looked at note
+      currentNoteAmount +=currentValue.value////assign value of note specific currentNoteAmount       
+      change = change.toFixed(2) // rounding error
+    }
+  if (currentNoteAmount>0){//if there is a currentNoteAmount of change to give in the currentvalue note,
+    accumulator.push([currentValue.note, currentNoteAmount]) // push currentNoteAmount to changebreakdown
+  }
+  return accumulator;
+  }, []);
+
+    // If there are no elements in change_arr or there is leftover (but insufficient) change, return
+  // the string "Insufficient Funds"
+  if (changeBreakdown.length < 1 || change > 0) {
+    result.status = 'INSUFFICIENT_FUNDS';
+    return result;
+  }
+
+  // return change array
+  result.status = 'OPEN';
+  result.change = changeBreakdown;  
+  return result;
+}
+}
+
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
